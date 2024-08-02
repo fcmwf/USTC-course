@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="search-container">
+    <h2>教师信息查询</h2>
+    <form method="post">
+        <label for="teacher_name">Name</label>
+        <input type="text" id="teacher_name" name="teacher_name" autocomplete="off" required>
+
+        <label for="teacher_id">ID</label>
+        <input type="text" id="teacher_id" name="teacher_id" autocomplete="off" required>
+
+        <label for="year">Year</label>
+        <input type="text" id="year" name="year" autocomplete="off" required>
+        
+        <input class="btn" type="submit" name="submit" value="Search">
+    </form>
+</div>
+
+<div class="totoro-container">
+    <img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+</div>
+{% endblock %}

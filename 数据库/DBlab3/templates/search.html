@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% macro convert_semester(semester) %}
+    {% if semester == 1 %}
+        春
+    {% elif semester == 2 %}
+        夏
+    {% elif semester == 3 %}
+        秋
+    {% else %}
+        未知学期
+    {% endif %}
+{% endmacro %}
+
+<span class="float-right">
+    <a class="btn" href="{{ url_for('generate_pdf', teacher_id =  resume_dict.ID, year = year) }}">Download PDF</a>
+</span>
+
+<div class="teacher-info">
+    <h3>教师基本信息</h3>
+    <hr><br>
+
+    <li style="list-style-type: none;">
+        <span>工号 :  {{resume_dict.ID }}</span>
+        <span>姓名 :  {{resume_dict.name}}</span>
+        <span>性别 :  {{resume_dict.gender}}</span>
+        <span>职称 :  {{resume_dict.title}}</span>
+    </li>
+</div>
+<br>
+
+<div class="paper-info">
+    <h3>科研情况：</h3>
+    <hr><br>
+    {% for item in papers_dict %}
+    <li style="list-style-type: none;">
+        <span> {{ loop.index }}.        </span>   
+        <span class="float-right">
+            <a class="btn" href="{{ url_for('edit_paper', ID = resume_dict.ID, index = item.paper_index ) }}">Edit</a>
+            <form class="inline-form" method="post" action="{{ url_for('delete_paper', ID = resume_dict.ID, index = item.paper_index) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+        </span>
+        <span> {{ item.paper_title }},  </span> 
+        <span> {{item.paper_source}},   </span>   
+        <span> {{item.paper_year}},     </span> 
+        <span> {{item.paper_class}},    </span> 
+        {{item.paper_rank}}      
+        {% if item.paper_corresponding == 1 %}
+            ,&nbsp;&nbsp;&nbsp;通讯作者
+        {% endif %}
+    </li>
+    {% endfor %}
+</div>
+<br>
+
+<div class="course-info">
+    <h3>教学工作：</h3>
+    <hr><br>
+    {% for item in courses_dict %}
+    <li style="list-style-type: none;">
+        {{ loop.index }}.        
+        <span class="float-right">
+            <a class="btn" href="{{ url_for('edit_course', teacher_id = resume_dict.ID , course_id =  item.course_id) }}">Edit</a>
+            <form class="inline-form" method="post" action="{{ url_for('delete_course', teacher_id = resume_dict.ID , course_id =  item.course_id) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+        </span>
+        <span>课程号 :  {{item.course_id }}</span>
+        <span>课程名 :  {{item.course_name}}</span>
+        <span>主讲学时 :  {{item.course_hour}}</span>
+        <span>学期 : {{ item.course_year }} 
+                     {{ convert_semester(item.course_semester) }}
+        </span><br>&nbsp;&nbsp;&nbsp;
+        <span> 课程总学时 : {{item.course_total_hour}}</span>
+    </li>
+    {% endfor %}
+
+</div>
+
+<div class="project-info">
+    <h3>项目情况：</h3>
+    <hr><br>
+    {% for item in projects_dict %}
+    <li style="list-style-type: none;">
+        {{ loop.index }}.         
+        <span class="float-right">
+            <a class="btn" href="{{ url_for('edit_project', teacher_id = resume_dict.ID , project_id =  item.project_id) }}">Edit</a>
+            <form class="inline-form" method="post" action="{{ url_for('delete_project',teacher_id = resume_dict.ID , project_id =  item.project_id ) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+        </span>
+        <span>{{ item.project_name }},  </span>
+        <span>{{ item.project_source }},   </span>   
+        <span>{{ item.project_type }},     </span>
+        <span>{{ item.project_beginYear }}-{{ item.project_endYear }},  </span><br>&nbsp;&nbsp;&nbsp;
+        <span>项目总经费 : {{ item.project_allExpense }},   </span>   
+        <span>承担经费 : {{ item.project_expense }}     </span>
+    </li>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师信息</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h3 {
+            color: #333;
+            font-weight: bold;
+        }
+        h2{
+            text-align: center;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        .teacher-info, .paper-info, .course-info, .project-info {
+            margin-bottom: 20px;
+        }
+        li {
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+        span {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+{% macro convert_semester(semester) %}
+    {% if semester == 1 %}
+        春
+    {% elif semester == 2 %}
+        夏
+    {% elif semester == 3 %}
+        秋
+    {% else %}
+        未知学期
+    {% endif %}
+{% endmacro %}
+<h2>教师教学科研工作统计 ({{start_year}}-{{end_year}})</h2>
+
+<div class="teacher-info">
+    <h3>教师基本信息</h3>
+    <hr><br>
+    <li>
+        <span>工号 :  {{resume_dict.ID }}</span>
+        <span>姓名 :  {{resume_dict.name}}</span>
+        <span>性别 :  {{resume_dict.gender}}</span>
+        <span>职称 :  {{resume_dict.title}}</span>
+    </li>
+</div>
+<br>
+
+<div class="paper-info">
+    <h3>科研情况：</h3>
+    <hr><br>
+    {% for item in papers_dict %}
+    <li>
+        <span> {{ loop.index }}.        </span>   
+        <span> {{ item.paper_title }},  </span> 
+        <span> {{item.paper_source}},   </span>   
+        <span> {{item.paper_year}},     </span> 
+        <span> {{item.paper_class}},    </span> 
+        {{item.paper_rank}}      
+        {% if item.paper_corresponding == 1 %}
+            ,&nbsp;&nbsp;&nbsp;通讯作者
+        {% endif %}
+    </li>
+    {% endfor %}
+</div>
+<br>
+
+<div class="course-info">
+    <h3>教学工作：</h3>
+    <hr><br>
+    {% for item in courses_dict %}
+    <li>
+        {{ loop.index }}.        
+        <span>课程号 :  {{item.course_id }}</span>
+        <span>课程名 :  {{item.course_name}}</span>
+        <span>主讲学时 :  {{item.course_hour}}</span>
+        <span>学期 : {{ item.course_year }} {{ convert_semester(item.course_semester) }}</span>
+        <span>课程总学时 : {{item.course_total_hour}}</span>
+    </li>
+    {% endfor %}
+</div>
+<br>
+
+<div class="project-info">
+    <h3>项目情况：</h3>
+    <hr><br>
+    {% for item in projects_dict %}
+    <li>
+        {{ loop.index }}.         
+        <span>项目名称 : {{ item.project_name }},  </span>
+        <span>项目来源 : {{ item.project_source }},   </span>   
+        <span>项目类型 : {{ item.project_type }},     </span>
+        <span>开始年份 : {{ item.project_beginYear }},    </span>
+        <span>结束年份 : {{ item.project_endYear }},  </span>
+        <span>项目总经费 : {{ item.project_allExpense }},   </span>   
+        <span>项目经费 : {{ item.project_expense }},     </span>
+    </li>
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Edit item</h3>
+<form method="post" >
+    <fieldset>
+        <legend>教师信息</legend>
+        <label for="teacher_name">教师姓名:</label>
+        <input type="text" id="teacher_name" name="teacher_name" required value = "{{project_info.teacher_name}} " readonly ><br><br>
+
+        <label for="teacher_id">教师id:</label>
+        <input type="text" id="teacher_id" name="teacher_id" required value = "{{project_info.teacher_id}}" readonly ><br><br>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>项目登记</legend>
+        <label for="project_name">项目名称：</label>
+        <input type="text" id="project_name" name="project_name" required value = "{{project_info.project_name}}"><br><br>
+
+        <label for="project_id">项目号：</label>
+        <input type="text" id="project_id" name="project_id" required value = "{{project_info.project_id}}" readonly><br><br>
+
+        <label for="project_source">项目来源：</label>
+        <input type="text" id="project_source" name="project_source" required value = "{{project_info.project_source}}"><br><br>
+
+        <label for="project_type">项目类型：</label>
+        <select id="project_type" name="project_type">
+            <option value="1">国家级项目</option>
+            <option value="2">省部级项目</option>
+            <option value="3">市厅级项目</option>
+            <option value="4">企业合作项</option>
+            <option value="5">其它类型项目</option>
+        </select><br><br>
+
+        <label for="project_allExpense">项目总经费</label>
+        <input type="number" id="project_allExpense" name="project_allExpense" required step="any" value="{{ project_info.project_allExpense }}"><br><br>
+
+        <label for="project_beginYear">项目开始年份：</label>
+        <input type="number" id="project_beginYear" name="project_beginYear" required value="{{project_info.project_beginYear}}"><br><br>
+
+        <label for="project_endYear">项目结束年份：</label>
+        <input type="number" id="project_endYear" name="project_endYear" required value="{{project_info.project_endYear}}"><br><br>
+
+        <label for="project_rank">项目排名：</label>
+        <input type="number" id="project_rank" name="project_rank" required value="{{project_info.project_rank}}"><br><br>
+
+        <label for="project_expense">承担经费：</label>
+        <input type="number" id="project_expense" name="project_expense" required  step="any" value="{{project_info.project_expense}}"><br><br>
+
+        <script>
+            document.getElementById('project_type').value = "{{ project_info.project_type }}" ;
+        </script>
+
+    </fieldset>
+        
+    <input type="submit" value="提交">
+</form>
+
+{% endblock %}

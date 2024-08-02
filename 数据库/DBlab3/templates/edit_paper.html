@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Edit item</h3>
+<form method="post">
+    <fieldset>
+        <legend>教师信息</legend>
+        <label for="teacher_name">教师姓名:</label>
+        <input type="text" id="teacher_name" name="teacher_name" required value = " {{paper_info.teacher_name}} " readonly ><br><br>
+
+        <label for="teacher_id">教师id:</label>
+        <input type="text" id="teacher_id" name="teacher_id" required value = " {{paper_info.teacher_id}}" readonly ><br><br>
+
+    </fieldset>
+    
+    <fieldset>
+        <legend>论文修改</legend>
+        <label for="paper_title">论文标题：</label>
+        <input type="text" id="paper_title" name="paper_title" required oninput="validateTitle(this)"  value = " {{paper_info.paper_title}}"><br><br>
+        
+        <script>
+        function validateTitle(input) {
+            // 验证输入内容是否包含单引号或双引号
+            if (input.value.includes("'") || input.value.includes('"') || 
+                input.value.includes('“') || input.value.includes('”') || 
+                input.value.includes('‘') || input.value.includes('’')) {
+                alert("论文标题不能包含单引号或双引号，请重新输入。");
+                input.value = ''; // 清空输入框
+            }
+        }
+        </script>
+
+        <label for="paper_year">发表日期：</label>
+        <input type="date" id="paper_year" name="paper_year"> <br><br>
+
+        <label for="paper_type">论文类型：</label>
+        <select id="paper_type" name="paper_type" >
+            <option value="1">full paper</option>
+            <option value="2">short paper</option>
+            <option value="3">poster paper</option>
+            <option value="4">demo paper</option>
+        </select><br><br>
+
+        <label for="paper_class">论文级别：</label>
+        <select id="paper_class" name="paper_class" >
+            <option value="1">CCF-A</option>
+            <option value="2">CCF-B</option>
+            <option value="3">CCF-C</option>
+            <option value="4">中文CCF-A</option>
+            <option value="5">中文CCF-B</option>
+            <option value="6">无级别</option>
+        </select><br><br>
+
+        <label for="paper_source">论文发表源：</label>
+        <input type="text" id="paper_source" name="paper_source" required value = "{{paper_info.paper_source}}"><br><br>
+
+        <label for="paper_rank">排名：</label>
+        <input type="text" id="paper_rank" name="paper_rank" required pattern="[0-9]+" title="请输入数字" min="1"><br><br>
+        
+        <label for="corresponding">是否通讯作者：</label>
+        <select id="corresponding" name="corresponding" >
+            <option value="0">否</option>
+            <option value="1">是</option>
+        </select><br><br>
+
+        <script>
+            document.getElementById('paper_year').value = "{{ paper_info.paper_year }}" ;
+            document.getElementById('paper_type').value = "{{ paper_info.paper_type }}" ;
+            document.getElementById('paper_class').value = "{{ paper_info.paper_class }}" ;
+            document.getElementById('paper_rank').value = "{{ paper_info.paper_rank }}" ;
+            document.getElementById('corresponding').value = "{{ paper_info.paper_corr }}" ;
+        </script>
+
+    </fieldset>
+
+    <input type="submit" value="提交">
+</form>
+
+{% endblock %}
+

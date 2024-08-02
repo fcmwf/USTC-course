@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="section">
+    <h2>教师信息及科研登记</h2>
+    <form method="POST" action="{{ url_for('add_paper') }}">
+        <fieldset>
+            <legend>教师信息</legend>
+            <label for="teacher_name">教师姓名:</label>
+            <input type="text" id="teacher_name" name="teacher_name" required><br><br>
+
+            <label for="teacher_id">教师id:</label>
+            <input type="text" id="teacher_id" name="teacher_id" required><br><br>
+
+            <label for="teacher_sex">性别:</label>
+            <select id="teacher_sex" name="teacher_sex" required>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select><br><br>
+
+            <label for="teacher_jobTitle">职称:</label>
+            <select id="teacher_jobTitle" name="teacher_jobTitle" required>
+                <option value="1">博士后</option>
+                <option value="2">助教</option>
+                <option value="3">讲师</option>
+                <option value="4">副教授</option>
+                <option value="5">特任教授</option>
+                <option value="6">教授</option>
+                <option value="7">助理研究员</option>
+                <option value="8">特任副研究员</option>
+                <option value="9">副研究员</option>
+                <option value="10">特任研究员</option>
+                <option value="11">研究员</option>
+            </select><br><br>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>科研登记</legend>
+            <label for="paper_title">论文标题：</label>
+            <input type="text" id="paper_title" name="paper_title" required oninput="validateTitle(this)"><br><br>
+            
+            <script>
+            function validateTitle(input) {
+                // 验证输入内容是否包含单引号或双引号
+                if (input.value.includes("'") || input.value.includes('"') || 
+                    input.value.includes('“') || input.value.includes('”') || 
+                    input.value.includes('‘') || input.value.includes('’')) {
+                    alert("论文标题不能包含单引号或双引号，请重新输入。");
+                    input.value = ''; // 清空输入框
+                }
+            }
+            </script>
+
+            <label for="paper_year">发表日期：</label>
+            <input type="date" id="paper_year" name="paper_year" required><br><br>
+
+            <label for="paper_type">论文类型：</label>
+            <select id="paper_type" name="paper_type" required>
+                <option value="1">full paper</option>
+                <option value="2">short paper</option>
+                <option value="3">poster paper</option>
+                <option value="4">demo paper</option>
+            </select><br><br>
+
+            <label for="paper_class">论文级别：</label>
+            <select id="paper_class" name="paper_class" required>
+                <option value="1">CCF-A</option>
+                <option value="2">CCF-B</option>
+                <option value="3">CCF-C</option>
+                <option value="4">中文CCF-A</option>
+                <option value="5">中文CCF-B</option>
+                <option value="6">无级别</option>
+            </select><br><br>
+
+            <label for="paper_source">论文发表源：</label>
+            <input type="text" id="paper_source" name="paper_source" required><br><br>
+
+            <label for="paper_rank">排名：</label>
+            <input type="text" id="paper_rank" name="paper_rank" required pattern="[0-9]+" title="请输入数字" min="1"><br><br>
+            
+
+            <label for="corresponding">是否通讯作者：</label>
+            <select id="corresponding" name="corresponding" required>
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select><br><br>
+        </fieldset>
+
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+
+<!-- {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %} -->
+
+{% endblock %}

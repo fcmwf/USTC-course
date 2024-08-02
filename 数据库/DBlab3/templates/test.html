@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="center-text">
+    <h2>教师教学科研工作统计 (2022-2023)</h2>
+</div>
+
+<div class="teacher-info">
+    <h3>教师基本信息</h3>
+    <hr><br>
+    <span>工号 :  {{ID }}</span>
+    <span>姓名 :  {{name}}</span>
+    <span>性别 :  {{gender}}</span>
+    <span>职称 :  {{title}}</span>
+</div>
+<br>
+<div class="paper">
+    <h3>教学情况</h3>
+    <ul class="course-list">
+        {% for item in courses_dict %}
+        <li>课程号: {{ item.course_id }} 课程名: {{ item.course_name }} 主讲学时: {{ item.course_hour }} 学期: {{ item.course_semester }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>发表论文情况</h3>
+    <ul class="paper-list">
+        {% for item in papers_dict %}
+        <li>{{ item.paper_rank }}. {{ item.paper_title }} - {{ item.paper_year }} - {{ item.paper_source }} - {{ item.paper_class }} - {{ item.paper_type }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>承担项目情况</h3>
+    <ul class="project-list">
+        {% for item in projects_dict %}
+        <li>{{ item.project_rank }}. {{ item.project_name }} - {{ item.project_source }} - {{ item.project_type }} - 总经费: {{ item.project_allExpense }} 承担经费: {{ item.project_expense }} {{ item.project_beginYear }}-{{ item.project_endYear }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

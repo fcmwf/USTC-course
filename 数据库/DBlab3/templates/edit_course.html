@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Edit item</h3>
+<form method="post">
+    <fieldset>
+        <legend>教师信息</legend>
+        <label for="teacher_name">教师姓名:</label>
+        <input type="text" id="teacher_name" name="teacher_name" required value = "{{course_info.teacher_name}} " readonly ><br><br>
+
+        <label for="teacher_id">教师id:</label>
+        <input type="text" id="teacher_id" name="teacher_id" required value = "{{course_info.teacher_id}}" readonly ><br><br>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>课程修改</legend>
+        <label for="course_name">课程名称：</label>
+        <input type="text" id="course_name" name="course_name" required value="{{course_info.course_name}}"><br><br>
+
+        <label for="course_id">课程号：</label>
+        <input type="text" id="course_id" name="course_id" required value = "{{course_info.course_id}}" readonly ><br><br>
+
+        <label for="course_hour">学时数：</label>
+        <input type="number" id="course_hour" name="course_hour" required value="{{course_info.course_total_hour}}"><br><br>
+
+        <label for="course_nature">课程性质：</label>
+        <select id="course_nature" name="course_nature" >
+            <option value="1">本科生课程</option>
+            <option value="2">研究生课程</option>
+        </select><br><br>
+
+        <label for="year">开设年份：</label>
+        <input type="number" id="year" name="year" required value = "{{course_info.course_year}}"><br><br>
+
+        <label for="semester">学期：</label>
+        <select id="semester" name="semester">
+            <option value="1">春季学期</option>
+            <option value="2">夏季学期</option>
+            <option value="3">秋季学期</option>
+        </select><br><br>
+
+        <label for="hour">承担学时：</label>
+        <input type="number" id="hour" name="hour" required value="{{course_info.course_hour}}"><br><br>
+        
+        <script>
+            document.getElementById('course_nature').value = "{{ course_info.course_nature }}" ;
+            document.getElementById('semester').value = "{{ course_info.course_semester }}" ;
+        </script>
+    
+    </fieldset>
+
+    <input type="submit" value="提交">
+</form>
+
+{% endblock %}
